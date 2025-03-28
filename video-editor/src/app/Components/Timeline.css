@@ -1,63 +1,84 @@
+/* Timeline Container */
 div.timeline-container {
-  background-color: #fff;
-  border-top: 1px solid #e0e0e0;
-  padding: 10px 20px;
+  background-color: #f9f9fb;
+  border-top: 2px solid #d1d5db;
+  padding: 12px 24px;
   width: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* Timeline Controls */
 div.timeline-controls {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
+/* Time Display */
 div.time-display {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  background-color: #e5e7eb;
+  padding: 6px 12px;
+  border-radius: 6px;
 }
 
+/* Timeline Bar */
 div.timeline-bar {
   position: relative;
+  background: linear-gradient(to right, #cbd5e1, #e2e8f0);
+  border-radius: 6px;
+  padding: 8px 0;
 }
 
+/* Time Markers */
 div.time-markers {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 div.time-marker {
   text-align: center;
   font-size: 12px;
-  color: #666;
+  font-weight: 500;
+  color: #6b7280;
 }
 
+/* Timeline Track */
 div.timeline-track {
-  height: 60px;
-  background-color: #f5f5f5;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  height: 65px;
+  background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+  border: 2px solid #93c5fd;
+  border-radius: 6px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
-  margin-bottom: 5px;
-  cursor: move;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
+  cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+div.timeline-track:hover {
+  background: linear-gradient(135deg, #93c5fd, #60a5fa);
 }
 
 div.timeline-track.drag-over {
   background-color: #e0e0e0;
-  border: 2px dashed #007bff;
+  border: 2px dashed #2563eb;
 }
 
+/* Playhead */
 div.playhead {
   position: absolute;
   top: 0;
-  width: 2px;
+  width: 3px;
   height: 100%;
-  background-color: #007bff;
+  background-color: #2563eb;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,32 +87,56 @@ div.playhead {
 }
 
 div.playhead-circle {
-  width: 12px;
-  height: 12px;
-  background-color: #007bff;
+  width: 14px;
+  height: 14px;
+  background-color: #2563eb;
   border-radius: 50%;
   position: absolute;
-  top: -6px;
-  left: -5px;
+  top: -7px;
+  left: -6px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* Placeholder */
 div.timeline-placeholder {
   text-align: center;
-  color: #999;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  padding: 6px;
+  transition: color 0.3s ease;
 }
 
 div.timeline-placeholder:hover {
-  color: #007bff;
+  color: #1d4ed8;
 }
 
+/* Media Block */
 div.media-block {
   position: absolute;
-  height: 40px;
-  border-radius: 4px;
+  height: 42px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
-  cursor: move;
+  cursor: grab;
+  padding: 4px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+div.media-block.video {
+  background: linear-gradient(135deg, #ff7b72, #ff3e3e);
+}
+
+div.media-block.image {
+  background: linear-gradient(135deg, #34d399, #10b981);
+}
+
+div.media-block.audio {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
 }

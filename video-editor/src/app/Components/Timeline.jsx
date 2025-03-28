@@ -152,9 +152,9 @@ export default function Timeline({
 
   // Handle media block drag
   const handleMediaDragEnd = (e, info, trackIndex, mediaIndex) => {
-    const trackWidth = e.target.parentElement.offsetWidth;
-    const newPosition = e.target.offsetLeft + info.offset.x;
-    const newPositionPercentage = (newPosition / trackWidth) * 100;
+    const trackWidth = e.target.parentElement.offsetWidth || 1;
+    const newPosition = Math.max(0, e.target.offsetLeft + info.offset.x);
+    const newPositionPercentage = Math.min(100, Math.max(0, (newPosition / trackWidth) * 100));
     onMediaDrag(trackIndex, mediaIndex, newPositionPercentage);
   };
 
