@@ -9,7 +9,7 @@ import './page.css';
 
 export default function Home() {
   const [tracks, setTracks] = useState([[]]); // Array of tracks, each track is an array of media items
-  const [dimensions, setDimensions] = useState({ width: "90%", height: "auto" });
+  const [dimensions, setDimensions] = useState({ width: "200", height: "200" });
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const timerRef = useRef(null);

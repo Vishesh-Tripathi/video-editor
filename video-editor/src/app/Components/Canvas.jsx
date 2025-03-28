@@ -1,36 +1,22 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import './Canvas.css';
 
 export default function Canvas({ tracks, dimensions, currentTime, isPlaying, onMediaResize }) {
   const videoRefs = useRef([]);
-  const [sizes, setSizes] = useState({});
+  const [sizes, setSizes] = useState({}); // Store sizes for each media item
 
   useEffect(() => {
-    videoRefs.current.forEach((video) => {
-      if (video) {
-        isPlaying ? video.play() : video.pause();
-      }
+    const initialSizes = {};
+    tracks.forEach((track, trackIndex) => {
+      track.forEach((item, itemIndex) => {
+        initialSizes[`${trackIndex}-${itemIndex}`] = { width: item.width, height: item.height };
+      });
     });
-  }, [isPlaying]);
-
-  useEffect(() => {
-    videoRefs.current.forEach((video) => {
-      if (video) {
-        const mediaItem = activeMediaItems.find(
-          (item) => item && `${item.trackIndex}-${item.itemIndex}` === video.dataset.key
-        );
-        if (mediaItem) {
-          const localTime = currentTime - mediaItem.startTime;
-          if (Math.abs(video.currentTime - localTime) > 0.2) {
-            video.currentTime = localTime;
-          }
-        }
-      }
-    });
-  }, [currentTime]);
+    setSizes(initialSizes);
+  }, [tracks]);
 
   const activeMediaItems = tracks
     .map((track, trackIndex) =>
@@ -43,29 +29,37 @@ export default function Canvas({ tracks, dimensions, currentTime, isPlaying, onM
           }
           return null;
         })
-        .filter((item) => item !== null)
+        .filter(item => item !== null)
     )
     .flat();
 
-  const handleResizeStop = useCallback((e, dir, ref, delta, position, media) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const newWidth = parseInt(ref.style.width, 10) || media.width;
-    const newHeight = parseInt(ref.style.height, 10) || media.height;
-
-    setSizes((prevSizes) => ({
-      ...prevSizes,
-      [`${media.trackIndex}-${media.itemIndex}`]: { width: newWidth, height: newHeight },
-    }));
-
-    onMediaResize(media.trackIndex, media.itemIndex, {
-      width: Math.max(newWidth, 50),
-      height: Math.max(newHeight, 50),
-      x: position.x,
-      y: position.y,
+  useEffect(() => {
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        if (isPlaying) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
     });
-  }, [onMediaResize]);
+  }, [isPlaying]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        const mediaItem = activeMediaItems.find(
+          item => item && `${item.trackIndex}-${item.itemIndex}` === video.dataset.key
+        );
+        if (mediaItem) {
+          const localTime = currentTime - mediaItem.startTime;
+          if (Math.abs(video.currentTime - localTime) > 0.2) {
+            video.currentTime = localTime;
+          }
+        }
+      }
+    });
+  }, [currentTime]);
 
   return (
     <div className="canvas" style={{ position: 'relative', width: '100%', height: dimensions.height }}>
@@ -73,9 +67,17 @@ export default function Canvas({ tracks, dimensions, currentTime, isPlaying, onM
         <Rnd
           key={`${media.trackIndex}-${media.itemIndex}`}
           size={sizes[`${media.trackIndex}-${media.itemIndex}`] || { width: media.width, height: media.height }}
-          default={{ x: 0, y: media.y || 0 }}
+          default={{
+            x: 0, // Lock to left edge
+            y: media.y || 0,
+          }}
           bounds="parent"
-          enableResizing={{ top: true, right: true, bottom: true, left: true }}
+          enableResizing={{
+            top: true,
+            right: true,
+            bottom: true,
+            left: true,
+          }}
           minWidth={50}
           minHeight={50}
           style={{
@@ -85,7 +87,25 @@ export default function Canvas({ tracks, dimensions, currentTime, isPlaying, onM
             transition: 'border 0.2s ease',
           }}
           className="resizable-media"
-          onResizeStop={(e, dir, ref, delta, position) => handleResizeStop(e, dir, ref, delta, position, media)}
+          onResizeStop={(e, dir, ref, delta, position) => {
+            e.stopPropagation();
+            e.preventDefault();
+
+            const newWidth = parseInt(ref.style.width, 10) || media.width;
+            const newHeight = parseInt(ref.style.height, 10) || media.height;
+
+            setSizes(prevSizes => ({
+              ...prevSizes,
+              [`${media.trackIndex}-${media.itemIndex}`]: { width: newWidth, height: newHeight },
+            }));
+
+            onMediaResize(media.trackIndex, media.itemIndex, {
+              width: newWidth,
+              height: newHeight,
+              x: position.x,
+              y: position.y,
+            });
+          }}
           onDragStop={(e, data) => {
             onMediaResize(media.trackIndex, media.itemIndex, {
               width: sizes[`${media.trackIndex}-${media.itemIndex}`]?.width || media.width,
@@ -97,7 +117,7 @@ export default function Canvas({ tracks, dimensions, currentTime, isPlaying, onM
         >
           {media.type === 'video' ? (
             <video
-              ref={(el) => (videoRefs.current[index] = el)}
+              ref={el => (videoRefs.current[index] = el)}
               data-key={`${media.trackIndex}-${media.itemIndex}`}
               src={media.url}
               className="media"
