@@ -1,6 +1,6 @@
 import { Stack, Select, Input, Group, Text, Button } from '@mantine/core';
 import './Sidebar.css';
-import Sidebar2 from './sidebar2';
+
 
 export default function Sidebar({
   onFileUpload,
@@ -12,7 +12,7 @@ export default function Sidebar({
 }) {
   return (
     <div className="sidebar-container">
-       {/* <Sidebar2/> */}
+  
       {/* Right Settings Panel */}
       <div className="sidebar-settings">
         <Stack spacing="md">
