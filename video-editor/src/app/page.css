@@ -1,0 +1,23 @@
+div.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+.canvas{
+  
+}
+
+div.main-content {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+div.canvas-and-timeline {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}

@@ -1,0 +1,96 @@
+/* TopBar Styling */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Project Name */
+.top-bar Text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Button Group */
+.top-bar .mantine-Group {
+  display: flex;
+  gap: 10px;
+}
+
+/* Buttons */
+.top-bar button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Log In Button */
+.top-bar button:nth-child(1) {
+  background: transparent;
+  color: #555;
+  border: 1px solid #ccc;
+}
+
+.top-bar button:nth-child(1):hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: #999;
+}
+
+/* Upgrade Button */
+.top-bar button:nth-child(2) {
+  background: linear-gradient(135deg, #ff7e5f, #ff3f34);
+  color: white;
+  border: none;
+}
+
+.top-bar button:nth-child(2):hover {
+  background: linear-gradient(135deg, #ff6347, #d63031);
+}
+
+/* Done Button */
+.top-bar button:nth-child(3) {
+  background: #222;
+  color: white;
+}
+
+.top-bar button:nth-child(3):hover {
+  background: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .top-bar .mantine-Group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .top-bar button {
+    width: 100%;
+  }
+}
