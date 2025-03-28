@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
-import Canvas from './components/Canvas';
-import Timeline from './components/Timeline';
-import TopBar from './components/TopBar';
+
 import './page.css';
+import TopBar from './Components/Topbar';
+import Sidebar from './Components/Sidebar';
+import Canvas from './Components/Canvas';
+import Timeline from './Components/Timeline';
 
 export default function Home() {
   const [tracks, setTracks] = useState([[]]); // Array of tracks, each track is an array of media items
