@@ -10,13 +10,18 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   position: fixed;
-  top: 10px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
   max-width: 1100px;
   z-index: 1000;
   transition: all 0.3s ease-in-out;
+}
+
+/* Push main content down to avoid overlap */
+body {
+  padding-top: 70px; /* Adjust based on .top-bar height */
 }
 
 /* Project Name */

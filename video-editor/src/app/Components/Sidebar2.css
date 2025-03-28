@@ -1,0 +1,68 @@
+/* Sidebar Container */
+.sidebar {
+    width: 4rem; /* 16 Tailwind equivalent */
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-right: 1px solid #d1d5db;
+  }
+  
+  /* Hamburger Menu */
+  .sidebar .hamburger {
+    color: #4b5563;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  
+  /* Menu Items */
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .menu-item .icon-container {
+    font-size: 1.75rem;
+    padding: 0.75rem;
+    background-color: #e5e7eb;
+    border-radius: 0.5rem;
+  }
+  
+  .menu-item p {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+  
+  .menu-item:hover {
+    color: #374151;
+    background-color: #e5e7eb;
+  }
+  
+  .menu-item.active {
+    color: #2563eb;
+    background-color: #bfdbfe;
+  }
+  
+  /* Help Icon */
+  .help-icon {
+    margin-top: auto;
+    margin-bottom: 1.5rem;
+    color: #6b7280;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .help-icon:hover {
+    color: #374151;
+  }
+  

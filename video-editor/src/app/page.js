@@ -183,7 +183,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      {/* <TopBar /> */}
+      <TopBar />
       <div className="main-content">
         <Sidebar
           onFileUpload={handleFileUpload}

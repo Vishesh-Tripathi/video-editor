@@ -62,7 +62,7 @@ export default function Canvas({ tracks, dimensions, currentTime, isPlaying, onM
   }, [currentTime]);
 
   return (
-    <div className="canvas" style={{ position: 'relative', width: '100%', height: "auto" }}>
+    <div className="canvas" style={{ position: 'relative', width: '700', height: "auto" }}>
       {activeMediaItems.map((media, index) => (
         <Rnd
           key={`${media.trackIndex}-${media.itemIndex}`}

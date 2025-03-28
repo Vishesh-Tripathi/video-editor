@@ -142,14 +142,21 @@ export default function Timeline({
   };
 
   // Handle playhead drag
-  const handlePlayheadDragEnd = (e, info) => {
-    const trackWidth = e.target.parentElement.offsetWidth || 1;
+  const [draggingTime, setDraggingTime] = useState(null);
+
+const handlePlayheadDragEnd = (positionPercentage) => {
+  const trackWidth = e.target.parentElement.offsetWidth || 1;
     const newPosition = Math.max(0, e.target.offsetLeft + info.offset.x);
     const newPositionPercentage = Math.min(100, Math.max(0, (newPosition / trackWidth) * 100));
-    onPlayheadDrag(newPositionPercentage);
-    setLocalCurrentTime((newPositionPercentage / 100) * timeSettings.end);
-  };
+  setDraggingTime(newTime); // Store the new time temporarily
+};
 
+// Apply the state update after render to avoid the error
+useEffect(() => {
+  if (draggingTime !== null) {
+    setCurrentTime(draggingTime);
+  }
+}, [draggingTime]);
   // Handle media block drag
   const handleMediaDragEnd = (e, info, trackIndex, mediaIndex) => {
     const trackWidth = e.target.parentElement.offsetWidth || 1;
@@ -237,7 +244,7 @@ export default function Timeline({
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0}
               dragMomentum={false}
-              onDragEnd={handlePlayheadDragEnd}
+              onDragEnd={() => handlePlayheadDragEnd(playheadPosition)}
               style={{
                 left: `${playheadPosition}%`,
               }}
